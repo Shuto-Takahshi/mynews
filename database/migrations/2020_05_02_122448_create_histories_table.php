@@ -28,6 +28,7 @@ class CreateHistoriesTable extends Migration
      */
     public function down()
     {
+        // historiesというテーブルがあったら消す
         Schema::dropIfExists('histories');
     }
 }

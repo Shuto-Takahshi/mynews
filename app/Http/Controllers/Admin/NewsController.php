@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\News; //News Modelを使用する
 use App\History;
-use App\Carbon\carbon;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -73,7 +73,7 @@ class NewsController extends Controller
   public function update(Request $request)
   {
     //Validationをかける
-    $thid->validate($request, News::$rules);
+    $this->validate($request, News::$rules);
     
     //News Modelからデータを取得する
     $news = News::find($request->id);
@@ -91,12 +91,17 @@ class NewsController extends Controller
     
     unset($news_form['_token']);
     
+    //画面から飛んできたデータをnewsのインスタンスに詰め込む
     //該当するデータを上書きして保存する
     $news->fill($news_form)->save();
     
+    // Historyクラスのインスタンスを新規作成して、$historyに代入
     $history = new History;
+    // 何番のニュースの編集履歴なのかを設定
     $history->news_id = $news->id;
+    // 編集日時を設定
     $history->edited_at = Carbon::now();
+    // 編集履歴を保存
     $history->save();
     
     return redirect('admin/news');
