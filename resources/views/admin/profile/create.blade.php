@@ -30,11 +30,11 @@
             <label class="col-md-2">性別</label>
             <div class="col-md-10">
               <label>
-                <input type="radio" name="gender">
+                <input type="radio" name="gender" value="男">
                 男
               </label>
               <label>
-                <input type="radio" name="gender">
+                <input type="radio" name="gender" value="女">
                 女
               </label>
             </div>
